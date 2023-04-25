@@ -97,9 +97,11 @@ int main(void)
 
 ## Output screen shots of proteus  :
 ##on:
+
 <img width="306" alt="image" src="https://user-images.githubusercontent.com/94185707/234246147-b7ac1d39-44f7-4e45-a4f7-0f36bbfc91d9.png">
 
 ##off
+
 <img width="316" alt="image" src="https://user-images.githubusercontent.com/94185707/234246266-d30fa139-f5e3-4b1b-b624-2deb5b6885f5.png">
 
 
