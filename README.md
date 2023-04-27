@@ -71,6 +71,7 @@ We are now at the last part of step by step guide on how to simulate STM32 proje
 
 
 ## STM 32 CUBE PROGRAM :
+```
 Name:Chevula Naga Durga
 Regno:212221230014
 
@@ -90,6 +91,7 @@ int main(void)
 	  HAL_Delay(500);
   }
  }
+ ```
 
 
 
