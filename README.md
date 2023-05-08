@@ -76,21 +76,121 @@ Name:Chevula Naga Durga
 Regno:212221230014
 
 #include "main.h"
+#include"stdio.h"
+#include"stdbool.h"
+bool pb;
+
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+
 int main(void)
 {
+ 
+
   HAL_Init();
   SystemClock_Config();
+
   MX_GPIO_Init();
+
+
   while (1)
   {
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-	  HAL_Delay(500);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-	  HAL_Delay(500);
+    pb=  HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+    if(pb==0)
+    {
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    HAL_Delay(100);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    HAL_Delay(100);
+
+
+
+
+    }
+    else
+    {
+  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+
+    	HAL_Delay(500);
+    }
+
+
+
   }
- }
+}
+
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+ 
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+ 
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+}
+
+
+void Error_Handler(void)
+{
+  
+  __disable_irq();
+  while (1)
+  {
+  }
+}
+
+#ifdef  USE_FULL_ASSERT
+
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  
+}
+#endif 
  ```
 
 
@@ -99,19 +199,20 @@ int main(void)
 
 ## Output screen shots of proteus  :
 ##on:
+<img width="461" alt="image" src="https://user-images.githubusercontent.com/94185707/236776161-44cc370d-2654-4f96-bced-abc7c7365955.png">
 
-<img width="306" alt="image" src="https://user-images.githubusercontent.com/94185707/234246147-b7ac1d39-44f7-4e45-a4f7-0f36bbfc91d9.png">
 
 ##off
-
-<img width="316" alt="image" src="https://user-images.githubusercontent.com/94185707/234246266-d30fa139-f5e3-4b1b-b624-2deb5b6885f5.png">
+<img width="409" alt="image" src="https://user-images.githubusercontent.com/94185707/236776528-c93b2ca8-2fb0-4a7f-a1b7-4fbbdd006b64.png">
 
 
 
 
 
 ## Proteus layout(Add pdf screen shot of circuit here)
- <img width="455" alt="image" src="https://user-images.githubusercontent.com/94185707/234246403-8232a4c6-e5d6-4e0e-8af1-6b2dd77083a5.png">
+<img width="457" alt="image" src="https://user-images.githubusercontent.com/94185707/236776655-e838596f-0299-4987-a646-4187102b1952.png">
+
+
 
  
  
